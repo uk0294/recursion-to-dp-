@@ -9,6 +9,7 @@ class Solution {
 public:
    void sum(int i,vector<int>&arr,vector<int>&curr,int target,vector<vector<int>>&ans ,int n ) // here we are passing many variables and particularl i is passed to avoid redudancy of same output , because there maybe cahance that r
    {// because we donot want the loop to start from a particular no. so we use variable i 
+   // also take care never forget andin this as we are passing by reference not passing by value 
 
     if(target==0) // as soon as the target reaces 0 we pus and return the ans 
     {
@@ -24,6 +25,8 @@ public:
         curr.push_back(arr[j]); // pushing the term in array 
       
         sum(j,arr,curr,target-arr[j],ans,n);  // caling the loop again 
+        // in case we cant use an element of array again then just call using j+1, because it will not check again the same element it will move to next
+        
         curr.pop_back(); // poppun te last element to explore further as for each node there are two possibilities 
 
     }
