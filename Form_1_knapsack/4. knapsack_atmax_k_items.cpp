@@ -129,3 +129,126 @@ int main()
 {
     solve() return 0;
 }
+
+
+/// anothere case when lets say if you take i then you can;t take i+1;
+
+/// two ways to implement 
+// first way 
+#include <bits/stdc++.h>
+using namespace std;
+const int INF = 1e9;
+int n;
+int w[3003]; // weight
+int v[3003]; // values
+int W;
+int k;
+int dp[3003][3003][100];
+int rec(int i, int x, int items_left)
+{
+    // pruning
+    // basecase
+    if (i == n)
+    {
+        return 0;
+    }
+    // cache chek
+    if (dp[i][x][items_left] != -1)
+    {
+        return dp[i][x][items_left];
+    }
+    // transition
+    int ans = rec(i + 1, x, items_left); // donot take
+    if (w[i] <= x && items_left > 0)
+    {
+        ans = max(ans, rec(i + 2, x - w[i], items_left - 1) + v[i]); // take
+        // just change to i+2 where you have taken i then you can't take i+1;
+    }
+    // save and return
+    dp[i][x][items_left] = ans;
+    return ans;
+}
+
+void solve()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> w[i];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> v[i];
+    }
+    cin >> W;
+    cin >> k;
+    memset(dp, -1, sizeof(dp));
+
+    cout << rec(0, W, k);
+}
+int main()
+{
+    solve() return 0;
+}
+
+
+/// second way  add anothere state nottaken 
+ 
+////
+#include <bits/stdc++.h>
+using namespace std;
+const int INF = 1e9;
+int n;
+int w[3003]; // weight
+int v[3003]; // values
+int W;
+int k;
+int dp[3003][3003][100][2];
+int rec(int i, int x, int items_left ,int nottaken )
+{
+    // pruning
+    // basecase
+    if (i == n)
+    {
+        return 0;
+    }
+    // cache chek
+    if (dp[i][x][items_left] != -1)
+    {
+        return dp[i][x][items_left][nottaken];
+    }
+    // transition
+    int ans = rec(i + 1, x, items_left,0); // donot take
+    if (w[i] <= x && items_left > 0&&!nottaken)
+    {
+        ans = max(ans, rec(i + 2, x - w[i], items_left - 1) + v[i],1); // take
+        // just change to i+2 where you have taken i then you can't take i+1;
+    }
+    // save and return
+    dp[i][x][items_left][nottaken] = ans;
+    return ans;
+}
+
+void solve()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> w[i];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> v[i];
+    }
+    cin >> W;
+    cin >> k;
+    memset(dp, -1, sizeof(dp));
+
+    cout << rec(0, W, k,0);
+}
+int main()
+{
+    solve() return 0;
+}
