@@ -10,7 +10,7 @@ bool done[10001][10001];
 int rec(int r, int c) // returns the maximum sum of the path
 {
     // pruning
-    if (r < 0 || r > 0)
+    if (r < 0 || c < 0)
         return -INF;
 
     // base case
