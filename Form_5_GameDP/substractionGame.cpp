@@ -39,6 +39,9 @@ void solve ()
 
     cout<<rec(n);
 
+    // by pattterb
+    if(n%3==0) cout <<"win"<<endl;
+    else cout<<"lose"<<endl;
 }
 int main()
 {
